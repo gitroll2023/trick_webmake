@@ -966,47 +966,68 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="p-6 md:p-10 bg-blue-600 text-white">
-                  <h3 className="text-xl md:text-2xl font-bold mb-6">연락처 정보</h3>
-                  <p className="mb-8 text-blue-100 text-sm md:text-base">
-                    아래 연락처로 직접 문의하시거나 옆의 양식을 작성해주세요. 빠른 시간 내에 답변 드리겠습니다.
-                  </p>
+                  <h3 className="text-xl md:text-2xl font-bold mb-6">문의하기</h3>
+                  
                   <ul className="space-y-4 mb-8">
+                    
                     <li className="flex items-start">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                       </svg>
-                      <span className="text-sm md:text-base">02-123-4567</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                      <span className="text-sm md:text-base">info@trickcontents.com</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      <span className="text-sm md:text-base">서울특별시 강남구 테헤란로 123 트릭빌딩 4층</span>
+                      <a href="https://open.kakao.com/me/trickweb" target="_blank" rel="noopener noreferrer" className="text-sm md:text-base hover:text-white transition-colors">
+                        카카오톡 오픈채팅 문의
+                      </a>
                     </li>
                   </ul>
                   <h4 className="text-lg font-semibold mb-4">근무 시간</h4>
-                  <p className="text-blue-100 text-sm md:text-base">
+                  <p className=" text-white text-sm md:text-base mb-6">
                     월요일 - 금요일: 9:00 AM - 6:00 PM<br />
                     주말 및 공휴일: 휴무
                   </p>
+                  
+                  <div className="mt-6">
+                    <h4 className="text-lg font-semibold mb-4">문의 안내</h4>
+                    <div className="bg-white/10 p-4 rounded-lg mb-4">
+                      <p className="text-sm text-white mb-2">
+                        1. 오른쪽 양식을 작성해주세요<br />
+                        2. "문의내용 복사하기" 버튼을 클릭하세요<br />
+                        3. "카카오톡 오픈채팅 열기" 버튼을 클릭하세요<br />
+                        4. 오픈채팅에 복사한 내용을 붙여넣기 하세요
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="p-6 md:p-10">
-                  <form>
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    const nameInput = document.getElementById('name') as HTMLInputElement;
+                    const emailInput = document.getElementById('email') as HTMLInputElement;
+                    const phoneInput = document.getElementById('phone') as HTMLInputElement;
+                    const projectTypeInput = document.getElementById('projectType') as HTMLSelectElement;
+                    const budgetInput = document.getElementById('budget') as HTMLSelectElement;
+                    const deadlineInput = document.getElementById('deadline') as HTMLInputElement;
+                    const messageInput = document.getElementById('message') as HTMLTextAreaElement;
+                    
+                    const formattedText = `[트릭웹 문의]
+1. 문의 유형: ${projectTypeInput.value || '웹사이트 제작'}
+2. 프로젝트 설명: ${messageInput.value || ''}
+3. 예산 범위: ${budgetInput.value || ''}
+4. 희망 완료일: ${deadlineInput.value || ''}
+5. 연락처: ${phoneInput.value || ''}
+6. 이름/회사명: ${nameInput.value || ''}
+7. 이메일: ${emailInput.value || ''}`;
+                    
+                    navigator.clipboard.writeText(formattedText);
+                    alert('문의 내용이 클립보드에 복사되었습니다! 카카오톡 오픈채팅에 붙여넣기 해주세요.');
+                  }}>
                     <div className="mb-4">
-                      <label htmlFor="name" className="block text-gray-700 text-sm font-medium mb-2">이름 *</label>
+                      <label htmlFor="name" className="block text-gray-700 text-sm font-medium mb-2">이름/회사명 *</label>
                       <input 
                         type="text" 
                         id="name" 
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-colors text-sm md:text-base" 
-                        placeholder="이름을 입력하세요" 
+                        placeholder="이름 또는 회사명을 입력하세요" 
                         required 
                       />
                     </div>
@@ -1021,12 +1042,51 @@ export default function Home() {
                       />
                     </div>
                     <div className="mb-4">
-                      <label htmlFor="phone" className="block text-gray-700 text-sm font-medium mb-2">연락처</label>
+                      <label htmlFor="phone" className="block text-gray-700 text-sm font-medium mb-2">연락처 *</label>
                       <input 
                         type="tel" 
                         id="phone" 
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-colors text-sm md:text-base" 
                         placeholder="연락처를 입력하세요" 
+                        required 
+                      />
+                    </div>
+                    <div className="mb-4">
+                      <label htmlFor="projectType" className="block text-gray-700 text-sm font-medium mb-2">문의 유형 *</label>
+                      <select 
+                        id="projectType" 
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-colors text-sm md:text-base" 
+                        required
+                      >
+                        <option value="웹사이트 제작">웹사이트 제작</option>
+                        <option value="웹앱 개발">웹앱 개발</option>
+                        <option value="웹사이트 리뉴얼">웹사이트 리뉴얼</option>
+                        <option value="반응형 웹 제작">반응형 웹 제작</option>
+                        <option value="랜딩페이지 제작">랜딩페이지 제작</option>
+                        <option value="기타">기타</option>
+                      </select>
+                    </div>
+                    <div className="mb-4">
+                      <label htmlFor="budget" className="block text-gray-700 text-sm font-medium mb-2">예산 범위</label>
+                      <select 
+                        id="budget" 
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-colors text-sm md:text-base"
+                      >
+                        <option value="">예산 범위를 선택하세요</option>
+                        <option value="100만원 미만">100만원 미만</option>
+                        <option value="100만원 ~ 300만원">100만원 ~ 300만원</option>
+                        <option value="300만원 ~ 500만원">300만원 ~ 500만원</option>
+                        <option value="500만원 ~ 1000만원">500만원 ~ 1000만원</option>
+                        <option value="1000만원 이상">1000만원 이상</option>
+                        <option value="협의 가능">협의 가능</option>
+                      </select>
+                    </div>
+                    <div className="mb-4">
+                      <label htmlFor="deadline" className="block text-gray-700 text-sm font-medium mb-2">희망 완료일</label>
+                      <input 
+                        type="date" 
+                        id="deadline" 
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-colors text-sm md:text-base"
                       />
                     </div>
                     <div className="mb-6">
@@ -1046,25 +1106,31 @@ export default function Home() {
                     </div>
                     <div className="text-center">
                       <button 
-                        type="submit" 
-                        className="w-full bg-blue-600 text-white font-semibold px-10 py-4 rounded-xl shadow-lg hover:bg-blue-700 transition-colors duration-300 text-lg"
+                        type="submit"
+                        className="w-full bg-blue-600 text-white font-semibold px-10 py-4 rounded-xl shadow-lg hover:bg-blue-700 transition-colors duration-300 text-lg mb-4"
                       >
-                        상담 신청하기
+                        문의내용 복사하기
                       </button>
+                      <a 
+                        href="https://open.kakao.com/me/trickweb" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="block w-full bg-yellow-500 text-gray-900 font-semibold px-10 py-4 rounded-xl shadow-lg hover:bg-yellow-400 transition-colors duration-300 text-lg"
+                      >
+                        카카오톡 오픈채팅 열기
+                      </a>
                       <p className="text-gray-500 text-sm mt-4">
-                        * 상담 신청 후 1영업일 이내에 답변 드리겠습니다
+                        * 문의내용을 복사한 후<br/>
+                        카카오톡 오픈채팅에 붙여넣기 해주세요
                       </p>
+                  
                     </div>
                   </form>
                 </div>
               </div>
             </div>
             
-            <div className="mt-12 text-center">
-              <p className="text-gray-600 text-sm md:text-base">
-                더 궁금한 점이 있으신가요? <a href="mailto:info@trickcontents.com" className="text-blue-600 font-semibold">이메일</a>로 문의하시거나 <a href="tel:02-123-4567" className="text-blue-600 font-semibold">전화</a>로 연락주세요.
-              </p>
-            </div>
+            
           </div>
         </div>
       </motion.section>
@@ -1078,6 +1144,7 @@ export default function Home() {
               <p className="text-gray-400 text-sm md:text-base mb-6">
                 단 일주일 만에 완성되는 고퀄리티 웹사이트 제작 서비스
               </p>
+              
             </div>
             
             <div>
@@ -1085,43 +1152,27 @@ export default function Home() {
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-400 hover:text-white transition-colors">홈</a></li>
                 <li><a href="#categories" className="text-gray-400 hover:text-white transition-colors">포트폴리오</a></li>
-                <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">문의하기</a></li>
+                <li><a href="#contact-form" className="text-gray-400 hover:text-white transition-colors">문의하기</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="text-lg font-semibold mb-4">연락처</h4>
-              <ul className="space-y-3 text-gray-400 text-sm md:text-base">
-                <li className="flex items-start">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 mt-0.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  <span>02-123-4567</span>
-                </li>
-                <li className="flex items-start">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 mt-0.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  <span>info@trickcontents.com</span>
-                </li>
-                <li className="flex items-start">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 mt-0.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <span>서울특별시 강남구 테헤란로 123 트릭빌딩 4층</span>
-                </li>
-              </ul>
+              <h4 className="text-lg font-semibold mb-4">사업자 정보</h4>
+            
+              <p className="text-gray-400 text-sm md:text-base">
+                대표자: 최호진<br />
+                사업자번호: 567-78-00439<br />
+                경기도 안산시 단원구 광덕대로 194, 6층
+              </p>
+              </div>
             </div>
           </div>
           
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; {new Date().getFullYear()} 트릭콘텐츠. All rights reserved.</p>
-            <div className="mt-4 flex justify-center space-x-6">
-              <a href="#" className="hover:text-white transition-colors">개인정보처리방침</a>
-              <a href="#" className="hover:text-white transition-colors">이용약관</a>
-            </div>
-          </div>
+          <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col justify-center items-center">
+            <p className="text-gray-500 text-sm text-center">
+              &copy; {new Date().getFullYear()} 트릭콘텐츠. All rights reserved.
+            </p>
+           
         </div>
       </footer>
     </main>
